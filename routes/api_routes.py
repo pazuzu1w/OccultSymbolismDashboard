@@ -3,15 +3,21 @@ from data.loader import DataLoader
 from services.symbol_service import SymbolService
 from services.tradition_service import TraditionService
 from services.analysis_service import AnalysisService
+from models.database import Symbol, Tradition, db
 
 # Create Blueprint
 bp = Blueprint('api', __name__)
 
-# Initialize services
-data_cache = DataLoader.load_data()
-symbol_service = SymbolService(data_cache)
-tradition_service = TraditionService(data_cache)
-analysis_service = AnalysisService(data_cache)
+# Remove this old initialization code
+# data_cache = DataLoader.load_data()
+# symbol_service = SymbolService(data_cache)
+# tradition_service = TraditionService(data_cache)
+# analysis_service = AnalysisService(data_cache)
+
+# Replace with simple service initialization
+symbol_service = SymbolService()
+tradition_service = TraditionService()
+analysis_service = AnalysisService()
 
 
 # Symbol routes
@@ -122,25 +128,32 @@ def get_geographic_distribution():
 @bp.route('/dashboard/summary')
 def get_dashboard_summary():
     """Return summarized data for dashboard overview"""
-    symbols = symbol_service.get_all_symbols()
-    traditions = tradition_service.get_all_traditions()
+    # Count total symbols and traditions
+    symbol_count = Symbol.query.count()
+    tradition_count = Tradition.query.count()
 
-    # Calculate time span
-    timeline_data = symbol_service.get_timeline_data()
-    earliest = min(timeline_data, key=lambda x: x["year"])["year"]
-    latest = max(timeline_data, key=lambda x: x["year"])["year"]
+    # Get timeline span
+    earliest_symbol = Symbol.query.order_by(Symbol.century_origin).first()
+    latest_symbol = Symbol.query.order_by(Symbol.century_origin.desc()).first()
+
+    if earliest_symbol and latest_symbol:
+        earliest_year = earliest_symbol.century_origin * 100 - 50
+        latest_year = latest_symbol.century_origin * 100 - 50
+    else:
+        earliest_year = 0
+        latest_year = 0
 
     # Get top traditions
     tradition_freq = analysis_service.get_tradition_symbol_frequency()
-    traditions_sorted = sorted(tradition_freq, key=lambda x: x["count"], reverse=True)
+    top_traditions = tradition_freq[:5] if tradition_freq else []
 
     return jsonify({
-        "total_symbols": len(symbols),
-        "total_traditions": len(traditions),
+        "total_symbols": symbol_count,
+        "total_traditions": tradition_count,
         "time_span": {
-            "earliest": earliest,
-            "latest": latest,
-            "range_years": latest - earliest
+            "earliest": earliest_year,
+            "latest": latest_year,
+            "range_years": latest_year - earliest_year
         },
-        "top_traditions": traditions_sorted[:5]
+        "top_traditions": top_traditions
     })

@@ -1,12 +1,20 @@
 from flask import Flask
 from config import config_by_name
 from routes import main_routes, api_routes
+from models.database import db
+from flask_migrate import Migrate
 import datetime
 
 def create_app(config_name='default'):
     """Application factory pattern for creating Flask app"""
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
+
+    # Initialize SQLAlchemy
+    db.init_app(app)
+
+    # Initialize Flask-Migrate
+    migrate = Migrate(app, db)
 
     # Register blueprints
     app.register_blueprint(main_routes.bp)
