@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Dashboard Summary -->
+<div class="dashboard-summary">
+    <div class="summary-item">
+        <h3 id="totalSymbols">--</h3>
+        <p>Occult Symbols</p>
+    </div>
+    <div class="summary-item">
+        <h3 id="totalTraditions">--</h3>
+        <p>Esoteric Traditions</p>
+    </div>
+    <div class="summary-item">
+        <p>Time Span</p>
+        <h5 id="timeSpan">-- to --</h5>
+    </div>
+    <div class="summary-item">
+        <p>Top Traditions</p>
+        <div id="topTraditions"></div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <!-- Search Panel -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Search Symbols</h5>
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <input type="text" id="searchInput" class="form-control bg-dark text-light border-secondary"
+                           placeholder="Search by name, tradition, or element...">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+                </div>
+                <div id="searchResults" class="mt-3"></div>
+            </div>
+        </div>
+
+        <!-- Symbol Details Panel (initially hidden) -->
+        <div id="symbolDetails" class="details-panel d-none mt-4"></div>
+    </div>
+
+    <div class="col-md-8">
+        <!-- Network Graph -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Symbol Connections Network</h5>
+            </div>
+            <div class="card-body">
+                <div id="networkGraph" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <!-- Symbol Timeline -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Symbol Timeline</h5>
+            </div>
+            <div class="card-body">
+                <div id="timelineChart" style="height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <!-- Element Distribution -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Elemental Distribution</h5>
+            </div>
+            <div class="card-body">
+                <div id="elementPieChart" style="height: 400px;"></div>
+            </div>
+        </div>
+
+        <!-- Element Details Panel (initially hidden) -->
+        <div id="elementDetails" class="details-panel d-none"></div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <!-- Tradition Timeline -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Esoteric Traditions Timeline</h5>
+            </div>
+            <div class="card-body">
+                <div id="traditionTimeline" style="height: 400px;"></div>
+            </div>
+        </div>
+
+        <!-- Tradition Details Panel (initially hidden) -->
+        <div id="traditionDetails" class="details-panel d-none"></div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <!-- Tradition Symbol Frequency -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Symbol Frequency by Tradition</h5>
+            </div>
+            <div class="card-body">
+                <div id="traditionHeatmap" style="height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <!-- Geographic Distribution -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Geographic Distribution</h5>
+            </div>
+            <div class="card-body">
+                <div id="regionBarChart" style="height: 400px;"></div>
+            </div>
+        </div>
+
+        <!-- Region Details Panel (initially hidden) -->
+        <div id="regionDetails" class="details-panel d-none"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/networkGraph.js') }}"></script>
+<script src="{{ url_for('static', filename='js/timeline.js') }}"></script>
+<script src="{{ url_for('static', filename='js/elementChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/traditionTimeline.js') }}"></script>
+<script src="{{ url_for('static', filename='js/traditionHeatmap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/regionChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

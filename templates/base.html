@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Occult Symbolism Dashboard{% endblock %}</title>
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- Additional CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-dark text-light">
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <i class="fas fa-eye-slash me-2"></i>
+                Occult Symbolism Visualizer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('main.index') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="symbolsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Symbols
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="symbolsDropdown">
+                            <li><a class="dropdown-item" href="#">By Tradition</a></li>
+                            <li><a class="dropdown-item" href="#">By Element</a></li>
+                            <li><a class="dropdown-item" href="#">By Time Period</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Symbol Network</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="traditionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Traditions
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="traditionsDropdown">
+                            <li><a class="dropdown-item" href="#">Timeline View</a></li>
+                            <li><a class="dropdown-item" href="#">Geographic Distribution</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Tradition Connections</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2 bg-dark text-light border-secondary" type="search" placeholder="Quick Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container-fluid">
+        <header class="py-3 mb-4">
+            <div class="text-center">
+                <h1>{% block header_title %}Occult Symbolism Visualizer{% endblock %}</h1>
+                <p class="text-muted">{% block header_subtitle %}Exploring connections between esoteric traditions and symbols{% endblock %}</p>
+            </div>
+        </header>
+
+        <!-- Main content block -->
+        {% block content %}{% endblock %}
+
+        <!-- Footer -->
+        <footer class="text-center py-4 text-muted">
+            <p>Occult Symbolism Data Visualization Dashboard &copy; {{ current_year }}</p>
+            <p class="small">Created for educational and research purposes</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.3.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.8.3/plotly.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
