@@ -53,7 +53,7 @@ The Occult Symbolism Dashboard is a data visualization platform that maps the hi
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/occult-symbolism-dashboard.git
+git clone https://github.com/pazuzu1w/occult-symbolism-dashboard.git
 cd occult-symbolism-dashboard
 
 # Create virtual environment
